@@ -18,6 +18,7 @@
 </head>
 <body>
     <h1>Benchmarking Visualization Tool</h1>
+    <h1>Benchmarking result of running at {{ formatted_time }}</h1> <!-- Header title with dynamic time -->
 
     <form action="/" method="post" enctype="multipart/form-data">
         <div class="form-section">
@@ -32,34 +33,23 @@
     </form>
 
     <!-- Placeholder for Graphs -->
-    <div id="data"></div>
-    <div id="layout"></div>
     <div id="graph_tpm"></div>
     <div id="graph_util"></div>
     <div id="graph_ttft"></div>
     <div id="graph_e2e"></div>
 
-    <!-- Script to render graphs (You will populate this part dynamically with Flask and Plotly) -->
-    <!-- <script>
-        {% for key, graphJSON in graphs.items() %}
-        var {{ key }} = JSON.parse('{{ graphJSON|safe }}');
-        Plotly.newPlot('{{ key }}', {{ key }}.data, {{ key }}.layout);
-        {% endfor %}
-    </script> -->
     <script>
-    var dataString = '[{"mode": "lines+markers", "name": "Total TPM", "x": [], "y": []}]';
-    var layoutString = '{"title": {"text": "Total Transactions Per Minute (TPM)"}, "xaxis": {"title": {"text": "Time"}}, "yaxis": {"title": {"text": "TPM"}}}';
+        var graph_tpm = {{ graphJSON_tpm|safe }};
+        Plotly.newPlot('graph_tpm', graph_tpm.data, graph_tpm.layout); // Targeting the first unique div
 
-    // Assuming you want to check if the data and layout strings are not empty
-    if (dataString) {
-        var data = JSON.parse(dataString);
-        Plotly.newPlot('data', data);
-    }
-    
-    if (layoutString) {
-        var layout = JSON.parse(layoutString);
-        Plotly.newPlot('layout', [], layout); // Assuming 'layout' is the ID of a different div and the second parameter is an empty data array
-    }
+        var graph_util = {{ graphJSON_util|safe }};
+        Plotly.newPlot('graph_util', graph_util.data, graph_util.layout); // Targeting the second unique div
+        
+        var graph_ttft = {{ graphJSON_ttft|safe }};
+        Plotly.newPlot('graph_ttft', graph_ttft.data, graph_ttft.layout); // Targeting the second unique div
+
+        var graph_e2e = {{ graphJSON_e2e|safe }};
+        Plotly.newPlot('graph_e2e', graph_e2e.data, graph_e2e.layout); // Targeting the third unique div
     </script>
 
 
