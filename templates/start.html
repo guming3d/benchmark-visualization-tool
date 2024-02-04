@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmarking Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Benchmarking Visualization Tool</h1>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div class="form-section">
+            <label for="data-textbox">Enter Benchmark Data:</label><br>
+            <textarea id="data-textbox" name="content" rows="10" cols="50" placeholder="Paste your JSONL data here"></textarea>
+        </div>
+        <div class="form-section">
+            <label for="file-upload">Or Upload a File:</label><br>
+            <input type="file" id="file-upload" name="file">
+        </div>
+        <button type="submit">Generate Diagrams</button>
+    </form>
+
+
+
+
+</body>
+</html>
