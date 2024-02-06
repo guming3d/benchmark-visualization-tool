@@ -3,7 +3,7 @@
 This Flask application visualizes the JSONL result of [azure-openai-benchmark](https://github.com/Azure/azure-openai-benchmark) using Plotly, providing interactive and dynamic charts for data analysis.
 
 ## Screeshot
-![screen shot](static/screenshot.jpg")
+![screen shot](static/screenshot.jpg)
 
 ## Features
 
