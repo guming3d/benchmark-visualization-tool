@@ -9,10 +9,10 @@
         /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 10px;
         }
         .form-section {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -34,18 +34,27 @@
     <!-- Placeholder for Graphs -->
     <div id="graph_tpm"></div>
     <div id="graph_util"></div>
+    <div id="graph_rpm"></div>
     <div id="graph_ttft"></div>
+    <div id="graph_tbt"></div>
     <div id="graph_e2e"></div>
 
     <script>
         var graph_tpm = {{ graphJSON_tpm|safe }};
         Plotly.newPlot('graph_tpm', graph_tpm.data, graph_tpm.layout); // Targeting the first unique div
 
+        var graph_rpm = {{ graphJSON_rpm|safe }};
+        Plotly.newPlot('graph_rpm', graph_rpm.data, graph_rpm.layout); // Targeting the second unique div
+ 
         var graph_util = {{ graphJSON_util|safe }};
         Plotly.newPlot('graph_util', graph_util.data, graph_util.layout); // Targeting the second unique div
         
         var graph_ttft = {{ graphJSON_ttft|safe }};
         Plotly.newPlot('graph_ttft', graph_ttft.data, graph_ttft.layout); // Targeting the second unique div
+
+        var graph_tbt = {{ graphJSON_tbt|safe }};
+        Plotly.newPlot('graph_tbt', graph_tbt.data, graph_tbt.layout); // Targeting the second unique div
+
 
         var graph_e2e = {{ graphJSON_e2e|safe }};
         Plotly.newPlot('graph_e2e', graph_e2e.data, graph_e2e.layout); // Targeting the third unique div

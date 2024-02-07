@@ -106,12 +106,18 @@ def process_jsonl_and_create_figures(content : str):
     
     fig_tpm = create_figure(df, "timestamp", ["tpm_total", "tpm_context", "tpm_gen"], "TPM over Time")
     graphJSON_tpm = json.dumps(fig_tpm, cls=PlotlyJSONEncoder)
-    
+
+    fig_rpm = create_figure(df, "timestamp", ["rpm"], "RPM over Time")
+    graphJSON_rpm = json.dumps(fig_rpm, cls=PlotlyJSONEncoder)
+
     fig_util = create_figure_util(df, "timestamp", ["util_avg", "util_95th"], "Utilization over Time")
     graphJSON_util = json.dumps(fig_util, cls=PlotlyJSONEncoder)
 
     fig_ttft = create_figure(df, "timestamp", ["ttft_avg", "ttft_95th"], "Time To First Token")
     graphJSON_ttft = json.dumps(fig_ttft, cls=PlotlyJSONEncoder)
+
+    fig_tbt = create_figure(df, "timestamp", ["tbt_avg", "tbt_95th"], "Seconds between two consequitive generated tokens")
+    graphJSON_tbt = json.dumps(fig_tbt, cls=PlotlyJSONEncoder)
     
     fig_e2e = create_figure(df, "timestamp", ["e2e_avg", "e2e_95th"], "e2e over Time")
     graphJSON_e2e = json.dumps(fig_e2e, cls=PlotlyJSONEncoder)
@@ -120,8 +126,10 @@ def process_jsonl_and_create_figures(content : str):
     
     return {
         "graphJSON_tpm": graphJSON_tpm,
+        "graphJSON_rpm": graphJSON_rpm,
         "graphJSON_util": graphJSON_util,
         "graphJSON_ttft": graphJSON_ttft,
+        "graphJSON_tbt": graphJSON_tbt,
         "graphJSON_e2e": graphJSON_e2e,
         "formatted_time": current_time
     }
@@ -146,8 +154,10 @@ def index():
                 return render_template(
                     "index.html",
                     graphJSON_tpm=figures["graphJSON_tpm"],
+                    graphJSON_rpm=figures["graphJSON_rpm"],
                     graphJSON_util=figures["graphJSON_util"],
                     graphJSON_ttft=figures["graphJSON_ttft"],
+                    graphJSON_tbt=figures["graphJSON_tbt"],
                     graphJSON_e2e=figures["graphJSON_e2e"],
                     formatted_time=figures["formatted_time"],
                 )
