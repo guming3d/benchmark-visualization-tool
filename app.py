@@ -100,10 +100,32 @@ def get_current_time_formatted():
     formatted_time = now.strftime("%Y-%m-%d-%H-%M")
     return formatted_time
 
+def extract_benchmark_config(content: str) -> dict:
+    """
+    Extracts the benchmark configuration from the log file's header.
+
+    Parameters:
+    - content (str): The content of the log file as a string.
+
+    Returns:
+    - dict: A dictionary containing the benchmark configuration.
+    """
+    # Split content by lines and extract the first line
+    first_line = content.splitlines()[0]
+    # Assuming the configuration is always in the first line and in JSON format
+    try:
+        config_json = json.loads(first_line.split(': ', 1)[1])
+        return config_json
+    except json.JSONDecodeError:
+        return {}
+
 def process_jsonl_and_create_figures(content : str):
+
+    benchmark_config = extract_benchmark_config(content)
+    print(benchmark_config)
     content = cleanse_jsonl(content)
     df = load_jsonl_data(content)
-    
+
     fig_tpm = create_figure(df, "timestamp", ["tpm_total", "tpm_context", "tpm_gen"], "TPM over Time")
     graphJSON_tpm = json.dumps(fig_tpm, cls=PlotlyJSONEncoder)
 
@@ -131,7 +153,8 @@ def process_jsonl_and_create_figures(content : str):
         "graphJSON_ttft": graphJSON_ttft,
         "graphJSON_tbt": graphJSON_tbt,
         "graphJSON_e2e": graphJSON_e2e,
-        "formatted_time": current_time
+        "formatted_time": current_time,
+        "benchmark_config": benchmark_config
     }
     
 @app.route('/', methods=['GET', 'POST'])
@@ -160,6 +183,7 @@ def index():
                     graphJSON_tbt=figures["graphJSON_tbt"],
                     graphJSON_e2e=figures["graphJSON_e2e"],
                     formatted_time=figures["formatted_time"],
+                    benchmark_config=figures["benchmark_config"],
                 )
             except Exception as e:
                 # Output the exception stack to the user

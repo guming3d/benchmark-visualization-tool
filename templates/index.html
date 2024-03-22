@@ -14,10 +14,33 @@
         .form-section {
             margin-bottom: 10px;
         }
+
+        /* Add styles for the benchmark configuration table */
+        .benchmark-config table {
+            width: 100%;
+            border-collapse: collapse; /* Collapse borders */
+        }
+        .benchmark-config th, .benchmark-config td {
+            border: 1px solid #ddd; /* Light grey border */
+            padding: 8px; /* Padding for table cells */
+        }
+        .benchmark-config tr {
+            background-color: #f9f9f9; /* Lighter grey background for each row */
+        }
+        .benchmark-config th {
+            background-color: #f2f2f2; /* Slightly darker grey for table headers */
+            text-align: left;
+        }
+            /* Styles for graph containers */
+        #graph_tpm, #graph_util, #graph_rpm, #graph_ttft, #graph_tbt, #graph_e2e {
+            border: 2px solid #ccc; /* Medium grey border */
+            padding: 15px; /* Padding inside the graph div */
+            margin-bottom: 20px; /* Space between graph divs */
+        }
     </style>
 </head>
 <body>
-    <h1>Benchmarking Visualization Tool</h1>
+    <h1>Azure OpenAI Benchmarking Visualization Tool</h1>
 
     <form action="/" method="post" enctype="multipart/form-data">
         <div class="form-section">
@@ -31,6 +54,32 @@
         <button type="submit">Generate Diagrams</button>
     </form>
 
+    <!-- Benchmark Configuration Display -->
+    <!-- <div class="benchmark-config">
+        <h2>Benchmark Configuration</h2>
+        <ul>
+        {% for key, value in benchmark_config.items() %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+        </ul>
+    </div> -->
+    <!-- Benchmark Configuration Display -->
+    <div class="benchmark-config">
+        <h2>Benchmark Configuration</h2>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            {% for key, value in benchmark_config.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
     <!-- Placeholder for Graphs -->
     <div id="graph_tpm"></div>
     <div id="graph_util"></div>
