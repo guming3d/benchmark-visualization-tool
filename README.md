@@ -14,9 +14,10 @@ This Flask application visualizes the JSONL result of [azure-openai-benchmark](h
 
 ## Usage
 
-1. Run the Flask app with `python app.py`.
-2. Navigate to the application URL, usually `http://127.0.0.1:5000/`.
-3. Upload your JSONL data file or paste the JSONL content directly. You need to set the output format of the benchmark tool to jsonl with option "--output-format jsonl", example below:
+1. Install the required python libs with `pip install -r requirements.txt`
+2. Run the Flask app with `python app.py`.
+3. Navigate to the application URL, usually `http://127.0.0.1:5000/`.
+4. Upload your JSONL data file or paste the JSONL content directly. <strong style="color: red;">You need to set the output format of the benchmark tool to jsonl</strong> with option "--output-format jsonl", example below:
    ```shell
    python3 -m benchmark.bench load \
     --deployment gpt-35-turbo-1106 \
@@ -26,13 +27,15 @@ This Flask application visualizes the JSONL result of [azure-openai-benchmark](h
     --log-save-dir ./logs \
     https://gbb-ea-openai-swedencentral-03.openai.azure.com
     ```
-4. Enter the raw json data in input box or upload the jsonl file to view the visualizations.
+
+5. Enter the raw json data in input box or upload the jsonl file to view the visualizations.
 
 ## Requirements
 
 - Flask
 - Pandas
 - Plotly
+- gunicorn
 
 ## Installation
 
