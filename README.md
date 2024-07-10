@@ -18,6 +18,8 @@ This Flask application visualizes the JSONL result of [azure-openai-benchmark](h
 
 ## Usage
 
+### Option 1: Local Deploy
+
 1. Install the required python libs with `pip install -r requirements.txt`
 2. Run the Flask app with `python app.py`.
 3. Navigate to the application URL, usually `http://127.0.0.1:5000/`.
@@ -33,6 +35,9 @@ This Flask application visualizes the JSONL result of [azure-openai-benchmark](h
     ```
 
 5. Enter the raw json data in input box or upload the jsonl file to view the visualizations.
+
+### Option 2: Using online benchmark site
+Visit: https://benchmark-result-visualization.azurewebsites.net/
 
 ## Requirements
 
