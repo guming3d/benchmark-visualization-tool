@@ -8,107 +8,139 @@
     <style>
         /* Add your CSS styles here */
         body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
         }
         .form-section {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
-
-        /* Add styles for the benchmark configuration table */
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
         .benchmark-config table {
             width: 100%;
-            border-collapse: collapse; /* Collapse borders */
+            border-collapse: collapse;
         }
         .benchmark-config th, .benchmark-config td {
-            border: 1px solid #ddd; /* Light grey border */
-            padding: 8px; /* Padding for table cells */
+            border: 1px solid #ddd;
+            padding: 8px;
         }
-        .benchmark-config tr {
-            background-color: #f9f9f9; /* Lighter grey background for each row */
+        .benchmark-config tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
         .benchmark-config th {
-            background-color: #f2f2f2; /* Slightly darker grey for table headers */
+            background-color: #f2f2f2;
             text-align: left;
         }
-            /* Styles for graph containers */
         #graph_tpm, #graph_util, #graph_rpm, #graph_ttft, #graph_tbt, #graph_e2e {
-            border: 2px solid #ccc; /* Medium grey border */
-            padding: 15px; /* Padding inside the graph div */
-            margin-bottom: 20px; /* Space between graph divs */
+            border: 2px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Azure OpenAI Benchmarking Visualization Tool</h1>
+    <div class="container">
+        <h1>Azure OpenAI Benchmarking Visualization Tool</h1>
 
-    <form action="/" method="post" enctype="multipart/form-data">
-        <div class="form-section">
-            <label for="data-textbox">Enter Benchmark Data:</label><br>
-            <textarea id="data-textbox" name="content" rows="10" cols="50" placeholder="Paste your JSONL data here"></textarea>
-        </div>
-        <div class="form-section">
-            <label for="file-upload">Or Upload a File:</label><br>
-            <input type="file" id="file-upload" name="file">
-        </div>
-        <button type="submit">Generate Diagrams</button>
-    </form>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="form-section">
+                <label for="data-textbox">Enter Benchmark Data:</label>
+                <textarea id="data-textbox" name="content" rows="10" cols="50" placeholder="Paste your JSONL data here"></textarea>
+            </div>
+            <div class="form-section">
+                <label for="file-upload">Or Upload a File:</label>
+                <input type="file" id="file-upload" name="file">
+            </div>
+            <button type="submit">Generate Diagrams</button>
+        </form>
 
-    <!-- Benchmark Configuration Display -->
-    <!-- <div class="benchmark-config">
-        <h2>Benchmark Configuration</h2>
-        <ul>
-        {% for key, value in benchmark_config.items() %}
-            <li>{{ key }}: {{ value }}</li>
-        {% endfor %}
-        </ul>
-    </div> -->
-    <!-- Benchmark Configuration Display -->
-    <div class="benchmark-config">
-        <h2>Benchmark Configuration</h2>
-        <table>
-            <tr>
-                <th>Parameter</th>
-                <th>Value</th>
-            </tr>
-            {% for key, value in benchmark_config.items() %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>{{ value }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        <!-- Benchmark Configuration Display -->
+        <div class="benchmark-config">
+            <h2>Benchmark Configuration</h2>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+                {% for key, value in benchmark_config.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <!-- Placeholder for Graphs -->
+        <div id="graph_tpm"></div>
+        <div id="graph_util"></div>
+        <div id="graph_rpm"></div>
+        <div id="graph_ttft"></div>
+        <div id="graph_tbt"></div>
+        <div id="graph_e2e"></div>
     </div>
-    
-    <!-- Placeholder for Graphs -->
-    <div id="graph_tpm"></div>
-    <div id="graph_util"></div>
-    <div id="graph_rpm"></div>
-    <div id="graph_ttft"></div>
-    <div id="graph_tbt"></div>
-    <div id="graph_e2e"></div>
 
     <script>
         var graph_tpm = {{ graphJSON_tpm|safe }};
-        Plotly.newPlot('graph_tpm', graph_tpm.data, graph_tpm.layout); // Targeting the first unique div
+        Plotly.newPlot('graph_tpm', graph_tpm.data, graph_tpm.layout);
 
         var graph_rpm = {{ graphJSON_rpm|safe }};
-        Plotly.newPlot('graph_rpm', graph_rpm.data, graph_rpm.layout); // Targeting the second unique div
- 
+        Plotly.newPlot('graph_rpm', graph_rpm.data, graph_rpm.layout);
+
         var graph_util = {{ graphJSON_util|safe }};
-        Plotly.newPlot('graph_util', graph_util.data, graph_util.layout); // Targeting the second unique div
+        Plotly.newPlot('graph_util', graph_util.data, graph_util.layout);
         
         var graph_ttft = {{ graphJSON_ttft|safe }};
-        Plotly.newPlot('graph_ttft', graph_ttft.data, graph_ttft.layout); // Targeting the second unique div
+        Plotly.newPlot('graph_ttft', graph_ttft.data, graph_ttft.layout);
 
         var graph_tbt = {{ graphJSON_tbt|safe }};
-        Plotly.newPlot('graph_tbt', graph_tbt.data, graph_tbt.layout); // Targeting the second unique div
-
+        Plotly.newPlot('graph_tbt', graph_tbt.data, graph_tbt.layout);
 
         var graph_e2e = {{ graphJSON_e2e|safe }};
-        Plotly.newPlot('graph_e2e', graph_e2e.data, graph_e2e.layout); // Targeting the third unique div
+        Plotly.newPlot('graph_e2e', graph_e2e.data, graph_e2e.layout);
     </script>
-
 
 </body>
 </html>

@@ -8,31 +8,73 @@
     <style>
         /* Add your CSS styles here */
         body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
         }
         .form-section {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Benchmarking Visualization Tool</h1>
+    <div class="container">
+        <h1>Benchmarking Visualization Tool</h1>
 
-    <form action="/" method="post" enctype="multipart/form-data">
-        <div class="form-section">
-            <label for="data-textbox">Enter Benchmark Data:</label><br>
-            <textarea id="data-textbox" name="content" rows="10" cols="50" placeholder="Paste your JSONL data here"></textarea>
-        </div>
-        <div class="form-section">
-            <label for="file-upload">Or Upload a File:</label><br>
-            <input type="file" id="file-upload" name="file">
-        </div>
-        <button type="submit">Generate Diagrams</button>
-    </form>
-
-
-
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="form-section">
+                <label for="data-textbox">Enter Benchmark Data:</label>
+                <textarea id="data-textbox" name="content" rows="10" cols="50" placeholder="Paste your JSONL data here"></textarea>
+            </div>
+            <div class="form-section">
+                <label for="file-upload">Or Upload a File:</label>
+                <input type="file" id="file-upload" name="file">
+            </div>
+            <button type="submit">Generate Diagrams</button>
+        </form>
+    </div>
 
 </body>
 </html>
