@@ -53,7 +53,20 @@ def create_figure(df, x_column, y_columns, title):
         title=title,
     )
 
-    # Update line names for clarity
+    # Highlight the plot title
+    fig.update_layout(
+        title={
+            'text': title,
+            'y':0.9,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {
+                'size': 24,
+                'color': '#333'
+            }
+        }
+    )
     fig.for_each_trace(lambda t: t.update(name=t.name.replace("variable=", "")))
 
     return fig
@@ -85,7 +98,20 @@ def create_figure_util(df, x_column, y_columns, title):
         title=title,
     )
 
-    # Update line names for clarity
+    # Highlight the plot title
+    fig.update_layout(
+        title={
+            'text': title,
+            'y':0.9,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': {
+                'size': 24,
+                'color': '#333'
+            }
+        }
+    )
     fig.for_each_trace(lambda t: t.update(name=t.name.replace("variable=", "")))
 
     # Set y-axis range to have a maximum of 100 (assuming it's percentage)
