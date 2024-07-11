@@ -199,7 +199,19 @@
             var button = document.getElementById("mode-switch");
             if (element.classList.contains("dark-mode")) {
                 button.textContent = "Switch to Light Mode";
+                Plotly.relayout('graph_tpm', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
+                Plotly.relayout('graph_rpm', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
+                Plotly.relayout('graph_util', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
+                Plotly.relayout('graph_ttft', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
+                Plotly.relayout('graph_tbt', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
+                Plotly.relayout('graph_e2e', {'paper_bgcolor': '#333', 'plot_bgcolor': '#333', 'font.color': '#fff'});
             } else {
+                Plotly.relayout('graph_tpm', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
+                Plotly.relayout('graph_rpm', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
+                Plotly.relayout('graph_util', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
+                Plotly.relayout('graph_ttft', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
+                Plotly.relayout('graph_tbt', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
+                Plotly.relayout('graph_e2e', {'paper_bgcolor': '#fff', 'plot_bgcolor': '#fff', 'font.color': '#000'});
                 button.textContent = "Switch to Dark Mode";
             }
         }
