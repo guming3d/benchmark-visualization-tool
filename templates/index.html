@@ -77,9 +77,30 @@
             padding: 15px;
             margin-bottom: 20px;
         }
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .dark-mode .container {
+            background-color: #444;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .dark-mode button {
+            background-color: #555;
+        }
+        .dark-mode button:hover {
+            background-color: #777;
+        }
+        .dark-mode .benchmark-config th {
+            background-color: #555;
+        }
+        .dark-mode .benchmark-config tr:nth-child(even) {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
+    <button id="mode-switch" onclick="toggleMode()">Switch to Dark Mode</button>
     <div class="container">
         <h1>Azure OpenAI Benchmarking Visualization Tool</h1>
 
@@ -141,5 +162,17 @@
         Plotly.newPlot('graph_e2e', graph_e2e.data, graph_e2e.layout);
     </script>
 
+    <script>
+        function toggleMode() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+            var button = document.getElementById("mode-switch");
+            if (element.classList.contains("dark-mode")) {
+                button.textContent = "Switch to Light Mode";
+            } else {
+                button.textContent = "Switch to Dark Mode";
+            }
+        }
+    </script>
 </body>
 </html>
